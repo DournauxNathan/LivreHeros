@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 struct 	Chapitre {
-	char description[150];
+	char description[500];
 	int gainOr;
 	int gaintPv;
 	int id[3];
@@ -18,63 +18,94 @@ int main()
 	int vie = 100;
 	int or = 0;
 
+	int chapitreActuelle;
 
-	chap chapitre1 = {"Le village des paysans.\nIls sont tres accueillants et vous proposer de vous reposer.",10,20,{0,1,2}};
-	chap chapitre2 = {"La grotte des gobelins.\nVous travers un amat de tresors ! Cependant ils sont nombreux et vous attaque.",50,-10,{0,1,2}};
-	chap chapitre3 = {"La tour de la princess.\nVous rencontrer un belle princesse.\nOh non c'est une sorcière\n Elle vous vole de l'argent et vous jette par la fenetre\n",10,20,{0,1,2}};
-	chap chapitre4 = {"L'antre du demon.\nVous voila dans l'antre bete.\n Vous sentez une profond respiration dans votre coup\n Soudain",10,20,{0,1,2}};
+
+	chap chapitre1 = {"Le village des paysans.\n\nIls sont tres accueillants et vous proposer de vous reposer.\n\nMais il est temps de reprendre la route ! \n\n Chapitre 2 - La grotte des gobelins\nChapitre 3 - La tour de la princesse \n Chapitre 4 - L'antre du demon",10,20,{0,1,2}};
+	chap chapitre2 = {"La grotte des gobelins.\n\nVous trouvez un amat de tresors ! Cependant ils sont nombreux et vous attaque.",50,-10,{0,1,2}};
+	chap chapitre3 = {"La tour de la princess.\n\nVous rencontrer un belle princesse.\nOh non c'est une sorcière\nElle vous vole de l'argent et vous jette par la fenetre\n",-20,-5,{0,1,2}};
+	chap chapitre4 = {"L'antre du demon.\n\nVous voila dans l'antre bete.\n Vous sentez une profond respiration dans votre coup\n Soudain",-30,-30,{0,1,2}};
 
 	chap livre[10];
 
 	void deplacement(chap * leChapitre)
 	{
-	printf("%s\n\n", (*leChapitre).description);
-	printf("Vous gagnez (ou perdez) %d d'ors.\n", (*leChapitre).gainOr);
-	printf("Vous gagner (ou perdez) %d points de vie.\n\n", (*leChapitre).gaintPv);
-	or += (*leChapitre).gainOr;
-	vie += (*leChapitre).gaintPv;
+		printf("%s\n\n", (*leChapitre).description);
+		
+		
+		if(or >= 0)
+		{
+			or += (*leChapitre).gainOr;
+			printf("Vous gagnez (ou perdez) %d d'ors.\n", (*leChapitre).gainOr);
+		}
+
+
+
+		vie += (*leChapitre).gaintPv;
+		printf("Vous gagner (ou perdez) %d points de vie.\n\n", (*leChapitre).gaintPv);
+		
+		if(vie >= 100)
+		{
+			printf("Votre vie est au maximun\n\n");
+		
+		}
+
 	}
 
-	/*Fonction de déplacement de chapitre en chapitre*/
-	/*void changeChapitre()
-	{
-		printf("Pour allez a un chapitre, taper son numéro\n");
-		scanf("%d", &); //Saisir le numéro du chapitre
 
-		switch (i)
-		{
-			case 1 : 
-					printf("%s\n", livre[1].description);
-			break;
-		}
-		
-	}*/
 
-	printf("	   Menu\n");
+	printf("	   Debut\n");
 	printf("____________________________\n\n");
 	printf("Voyager a travers les chapitres !\n");
 
 	while (vie > 0)
 	{
+
 		printf("____________________________\n\n");
 		printf("Vie: %d | Or: %d\n\n", vie,or);
 
-		printf("Chapitre(1) Chapitre(2) \n\n");
 		printf("-- --\n");
-		printf("Votre choix: "); scanf("%d", &destination); printf("");
+		printf("Voyage vers le chapitre: "); scanf("%d", &destination); printf("");
 		printf("-- --\n\n");
+
+		if (chapitreActuelle == 4)
+		{
+			printf("Vous etes deja dans ce chapitre\n");
+		}
+		else if (destination == 1 || destination == 2 || destination == 3)
+		{
+			printf("Vous pouvez allez au chapitre 1,2 et 3\n");
+		}
 
 		switch (destination)
 		{
 			case 1 :
 				deplacement(&chapitre1);
+				chapitreActuelle = 1;
 			break;
 
 			case 2 :
 				deplacement(&chapitre2);
-				
+				chapitreActuelle = 2;
+			break;
+
+			case 3 :
+				deplacement(&chapitre3);
+				chapitreActuelle = 3;
+			break;
+
+			case 4 :
+				deplacement(&chapitre4);
+				chapitreActuelle = 4;
 			break;
 		}
+	}
+
+	
+
+	if (or <= 0)
+	{
+		printf("Vous n'avez plus d'or\n\n");
 	}
 
 	if(vie <=0)
