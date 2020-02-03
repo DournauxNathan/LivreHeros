@@ -32,14 +32,8 @@ int main()
 	{
 		printf("%s\n\n", (*leChapitre).description);
 		
-		
-		if(or >= 0)
-		{
-			or += (*leChapitre).gainOr;
-			printf("Vous gagnez (ou perdez) %d d'ors.\n", (*leChapitre).gainOr);
-		}
-
-
+		or += (*leChapitre).gainOr;
+		printf("Vous gagnez (ou perdez) %d d'ors.\n", (*leChapitre).gainOr);
 
 		vie += (*leChapitre).gaintPv;
 		printf("Vous gagner (ou perdez) %d points de vie.\n\n", (*leChapitre).gaintPv);
@@ -67,15 +61,6 @@ int main()
 		printf("-- --\n");
 		printf("Voyage vers le chapitre: "); scanf("%d", &destination); printf("");
 		printf("-- --\n\n");
-
-		if (chapitreActuelle == 4)
-		{
-			printf("Vous etes deja dans ce chapitre\n");
-		}
-		else if (destination == 1 || destination == 2 || destination == 3)
-		{
-			printf("Vous pouvez allez au chapitre 1,2 et 3\n");
-		}
 
 		switch (destination)
 		{
